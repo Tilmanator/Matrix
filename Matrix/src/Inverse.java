@@ -118,7 +118,7 @@ public class Inverse {
 	 * @return the transpose of the matrix
 	 */
 	public static int[][] transpose(int[][] m) {
-		int[][] temp = new int[m.length][m.length];
+		int[][] temp = new int[m[0].length][m.length];
 
 		for (int i = 0; i < m.length; i++) {
 			for (int j = 0; j < m.length; j++) {
