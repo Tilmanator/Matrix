@@ -22,6 +22,29 @@ public class Matrix {
 		return data.length == data[0].length;
 	}
 
+	public Matrix multiply(Matrix m) throws IncorrectDimensionException {
+		if (data[0].length != m.data.length)
+			throw new IncorrectDimensionException();
+		double[][] result = new double[data.length][m.data[0].length];
+		for (int q = 0; q < data.length; q++) {
+			double[] row = data[q];
+			for (int i = 0; i < result[0].length; i++) {
+				double[] column = m.getColumn(i);
+				for (int j = 0; j < column.length; j++) {
+					result[q][i] += row[j] * column[j];
+				}
+			}
+		}
+		return new Matrix(result);
+	}
+
+	public double[] getColumn(int col) {
+		double[] column = new double[data.length];
+		for (int i = 0; i < data.length; i++)
+			column[i] = data[i][col];
+		return column;
+	}
+
 	public Matrix getInverse() {
 		return null;
 	}
@@ -34,5 +57,14 @@ public class Matrix {
 				temp[j][i] = data[i][j];
 		data = temp;
 	}
+
+}
+
+class IncorrectDimensionException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4789763037054408519L;
 
 }

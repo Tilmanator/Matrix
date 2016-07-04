@@ -11,11 +11,14 @@ public class Inverse {
 		if (initial.length != initial[0].length)
 			throw new NonSquareMatrixException();
 
-		// base case, shortcut of 2 by 2 matrix
+		// base cases
+		//shortcut of 2 by 2 matrix
 		if (initial.length == 2) {
 			return initial[0][0] * initial[1][1] - initial[1][0]
 					* initial[0][1];
 		}
+		if (initial.length==1)
+			return initial[0][0];
 
 		int determinant = 0;
 		for (int i = 0; i < initial.length; i++) {
@@ -74,7 +77,8 @@ public class Inverse {
 		// Ensure addition subtraction rule is abided by
 		for (int p = 0; p < co.length; p++) {
 			for (int h = 0; h < co.length; h++) {
-				if ((p * co.length + h) % 2 == 1)
+				// Changed, took out p * co.length
+				if ((p+ h) % 2 == 1)
 					co[p][h] *= -1;
 			}
 		}
@@ -111,6 +115,15 @@ public class Inverse {
 		}
 		System.out.println();
 	}
+	
+	public static void displayMatrix(int[][] m) {
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[0].length; j++)
+				System.out.print(m[i][j] + " ");
+			System.out.println();
+		}
+		System.out.println();
+	}
 
 	/**
 	 * 
@@ -135,10 +148,15 @@ public class Inverse {
 		int[][] test = { { 1, 2, 3 }, { 0, -4, 1 }, { 0, 3, -1 } };
 		int[][] check = { { 1, 2, 3 }, { 0, 4, 5 }, { 1, 0, 6 } };
 		int[][] next = { { 6, 1, 1 }, { 4, -2, 5 }, { 2, 8, 7 } };
+		int [][] twos = {{1,4},{5,7}};
+		int [][] m = {{1,2,3},{0,1,4},{5,6,0}};
 		// cofactorMatrix(check);
 		// System.out.println(determinate(check));
 		// //System.out.println(determinate(nums));
-		double[][] matrix = inverse(check);
+//		int[][] m = cofactorMatrix(twos);
+//		displayMatrix(m);
+//		System.out.println();
+		double[][] matrix = inverse(m);
 		displayMatrix(matrix);
 		// System.out.println(determinate(next));
 	}
