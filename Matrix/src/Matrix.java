@@ -66,5 +66,6 @@ class IncorrectDimensionException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 4789763037054408519L;
+	String kek ="kek";
 
 }
