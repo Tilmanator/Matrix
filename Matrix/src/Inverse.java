@@ -1,12 +1,16 @@
 public class Inverse {
 
+	Inverse(){
+		
+	}
+	
 	/**
 	 * 
 	 * @param initial the original matrix
 	 * @return the determinate of the matrix
 	 * @throws NonSquareMatrixException
 	 */
-	public static int determinate(int[][] initial)
+	public static double determinate(double[][] initial)
 			throws NonSquareMatrixException {
 		if (initial.length != initial[0].length)
 			throw new NonSquareMatrixException();
@@ -22,8 +26,8 @@ public class Inverse {
 
 		int determinant = 0;
 		for (int i = 0; i < initial.length; i++) {
-			int curr = initial[0][i];
-			int[][] temp = new int[initial.length - 1][initial.length - 1];
+			double curr = initial[0][i];
+			double[][] temp = new double[initial.length - 1][initial.length - 1];
 			boolean crossover = false;
 			for (int j = 1; j < initial.length; j++) {
 				for (int h = 0; h < initial.length; h++) {
@@ -49,11 +53,11 @@ public class Inverse {
 	 * @return the cofactor matrix
 	 * @throws Exception
 	 */
-	public static int[][] cofactorMatrix(int[][] m) throws Exception {
-		int[][] co = new int[m.length][m.length];
+	public static double[][] cofactorMatrix(double[][] m) throws Exception {
+		double[][] co = new double[m.length][m.length];
 		for (int i = 0; i < m.length; i++) {
 			for (int j = 0; j < m.length; j++) {
-				int[][] temp = new int[m.length - 1][m.length - 1];
+				double[][] temp = new double[m.length - 1][m.length - 1];
 				boolean rowSkip = false;
 				boolean colSkip = false;
 				for (int row = 0; row < m.length; row++) {
@@ -91,15 +95,14 @@ public class Inverse {
  * @return the inverse of the given matrix
  * @throws Exception
  */
-	public static double[][] inverse(int[][] initial) throws Exception {
+	public static double[][] inverse(double[][] initial) throws Exception {
 		if (initial.length != initial[0].length)
 			return null;
-
-		int[][] mod = transpose(cofactorMatrix(initial));
-		return divide(mod, determinate(initial));
+		double[][] mod = transpose(cofactorMatrix(initial));
+		return divideByConstant(mod, determinate(initial));
 	}
 
-	public static double[][] divide(int[][] m, int n) {
+	public static double[][] divideByConstant(double[][] m, double n) {
 		double[][] y = new double[m.length][m.length];
 		for (int i = 0; i < m.length; i++)
 			for (int j = 0; j < m.length; j++)
@@ -130,8 +133,8 @@ public class Inverse {
 	 * @param m the original matrix
 	 * @return the transpose of the matrix
 	 */
-	public static int[][] transpose(int[][] m) {
-		int[][] temp = new int[m[0].length][m.length];
+	public static double[][] transpose(double[][] m) {
+		double[][] temp = new double[m[0].length][m.length];
 
 		for (int i = 0; i < m.length; i++) {
 			for (int j = 0; j < m.length; j++) {
@@ -143,13 +146,13 @@ public class Inverse {
 	}
 
 	public static void main(String[] args) throws Exception {
-		int[][] nums = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 },
-				{ 13, 14, 15, 16 } };
-		int[][] test = { { 1, 2, 3 }, { 0, -4, 1 }, { 0, 3, -1 } };
-		int[][] check = { { 1, 2, 3 }, { 0, 4, 5 }, { 1, 0, 6 } };
-		int[][] next = { { 6, 1, 1 }, { 4, -2, 5 }, { 2, 8, 7 } };
-		int [][] twos = {{1,4},{5,7}};
-		int [][] m = {{1,2,3},{0,1,4},{5,6,0}};
+//		int[][] nums = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 },
+//				{ 13, 14, 15, 16 } };
+//		int[][] test = { { 1, 2, 3 }, { 0, -4, 1 }, { 0, 3, -1 } };
+//		int[][] check = { { 1, 2, 3 }, { 0, 4, 5 }, { 1, 0, 6 } };
+//		int[][] next = { { 6, 1, 1 }, { 4, -2, 5 }, { 2, 8, 7 } };
+//		int [][] twos = {{1,4},{5,7}};
+		double [][] m = {{1,2,3},{0,1,4},{5,6,0}};
 		// cofactorMatrix(check);
 		// System.out.println(determinate(check));
 		// //System.out.println(determinate(nums));

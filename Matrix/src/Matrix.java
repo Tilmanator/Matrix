@@ -3,6 +3,7 @@ import java.awt.Dimension;
 public class Matrix {
 	private double[][] data;
 
+	// Constructors
 	Matrix(double[][] m) {
 		data = m;
 	}
@@ -14,12 +15,34 @@ public class Matrix {
 				data[i][j] = m[i][j];
 	}
 
+	// Simple operations
 	public Dimension size() {
 		return new Dimension(data.length, data[0].length);
 	}
 
 	public boolean isSquare() {
 		return data.length == data[0].length;
+	}
+	
+	public double[] getColumn(int col) {
+		double[] column = new double[data.length];
+		for (int i = 0; i < data.length; i++)
+			column[i] = data[i][col];
+		return column;
+	}
+	
+	public double [] getRow(int row){
+		return data[row];
+	}
+	
+	public Matrix getInverse() {
+		double [][] temp=null;
+		try {
+			temp= Inverse.inverse(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new Matrix(temp);
 	}
 
 	public Matrix multiply(Matrix m) throws IncorrectDimensionException {
@@ -37,27 +60,27 @@ public class Matrix {
 		}
 		return new Matrix(result);
 	}
-
-	public double[] getColumn(int col) {
-		double[] column = new double[data.length];
-		for (int i = 0; i < data.length; i++)
-			column[i] = data[i][col];
-		return column;
+	
+	public void divideByConstant(double n) {
+		data = Inverse.divideByConstant(data,n);
 	}
-
-	public Matrix getInverse() {
-		return null;
+	
+	public Matrix divide(Matrix m) throws IncorrectDimensionException{
+		m = m.getInverse();
+		return this.multiply(m);
 	}
 
 	public void transpose() {
-		double[][] temp = new double[data[0].length][data.length];
-
-		for (int i = 0; i < data.length; i++)
-			for (int j = 0; j < data[i].length; j++)
-				temp[j][i] = data[i][j];
-		data = temp;
+		data=Inverse.transpose(data);
 	}
 
+	public void displayMatrix() {
+		Inverse.displayMatrix(data);
+	}
+	
+	public double determinant() throws NonSquareMatrixException {
+		return Inverse.determinate(data);
+	}
 }
 
 class IncorrectDimensionException extends Exception {
